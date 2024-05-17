@@ -6,11 +6,12 @@ use Livewire\Component;
 
 class SubjectTabBar extends Component
 {
-    public $activeSubject = 'math1';
+    public $activeSubject = '数学1';
 
     public function setActiveSubject($subject)
     {
         $this->activeSubject = $subject;
+        $this->dispatch('activeSubjectUpdated', $this->activeSubject);
     }
 
     public function render()

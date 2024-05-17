@@ -22,7 +22,7 @@
         <div class="plan__header">
             <h2 class="plan__title">1年生後期期末テスト</h2>
             <div class="plan__question">
-                <p class="plan__question-text">数学1の目標点数は？</p>
+                <p class="plan__question-text">{{ $activeSubject }}の目標点数は？</p>
                 <div class="plan__question-answer">
                     <span class="plan__question-answer-score">70</span>
                     <span class="plan__question-answer-unit">点</span>
