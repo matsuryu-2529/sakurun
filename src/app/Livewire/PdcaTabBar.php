@@ -8,6 +8,7 @@ class PdcaTabBar extends Component
 {
     public $activeTab = 'plan';
     public $activeSubject = '数学1';
+    public $edit = false;
 
     protected $listeners = ['activeSubjectUpdated'];
 
@@ -16,9 +17,25 @@ class PdcaTabBar extends Component
         $this->activeTab = $tab;
     }
 
+    public function setEdit()
+    {
+        $this->edit = true;
+    }
+
+    public function
+    resetEdit()
+    {
+        $this->edit = false;
+    }
+
     public function activeSubjectUpdated($subject)
     {
         $this->activeSubject = $subject;
+    }
+
+    public function aiReview()
+    {
+        
     }
 
     public function render()
