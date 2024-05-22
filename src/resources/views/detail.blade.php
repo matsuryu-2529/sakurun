@@ -2,5 +2,5 @@
 @extends('layouts.teacher')
 @section('content')
     <livewire:teacher-header />
-    <livewire:home />
+    <livewire:detail />
 @endsection
