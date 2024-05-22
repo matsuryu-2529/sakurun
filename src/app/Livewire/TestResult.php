@@ -4,9 +4,9 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class SubjectTabBar extends Component
+class TestResult extends Component
 {
-    public $activeSubject = '数学1';
+    public $activeSubject = '合計';
 
     public function setActiveSubject($subject)
     {
@@ -16,6 +16,6 @@ class SubjectTabBar extends Component
 
     public function render()
     {
-        return view('livewire.subject-tab-bar');
+        return view('livewire.test-result');
     }
 }

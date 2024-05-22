@@ -7,8 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/globals.css',
                 'resources/css/style.css',
-                'resources/css/styleguide.css',
-                'resources/sass/app.scss'
+                'resources/css/style-teacher.css',
             ],
             refresh: true,
         }),
