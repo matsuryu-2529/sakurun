@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Task extends Model
 {
@@ -26,4 +27,11 @@ class Task extends Model
         'updated_date' => 'datetime',
         'deadline' => 'datetime',
     ];
+
+    protected $dates = ['deadline'];
+
+    public function getFormattedDeadlineAttribute()
+    {
+        return Carbon::parse($this->deadline)->format('n/j');
+    }
 }
