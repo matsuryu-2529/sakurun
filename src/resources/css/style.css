@@ -365,12 +365,38 @@
   color: #000000;
 }
 
-.plan__task-create-button {
-  width: 20px;
-  height: 20px;
+.create-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-button-container {
+  margin-left: 10px;
+}
+
+.plan__task-button {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
   border-radius: 50%;
-  background-color: #ceafaf;
   color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.plan__task-button.delete {
+  background-color: #d9534f;
+}
+
+.plan__task-button.create {
+  background-color: #5cb85c;
 }
 
 /* Do画面 */

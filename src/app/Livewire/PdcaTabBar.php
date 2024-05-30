@@ -18,7 +18,7 @@ class PdcaTabBar extends Component
     public $activeTab = 'plan';
     public $activeSubjectId = 1;
     public $isOpen = false;
-    protected $listeners = ['activeSubjectIdUpdated', 'activeTabUpdated'];
+    protected $listeners = ['activeSubjectIdUpdated', 'activeTabUpdated', 'deleteTask'];
 
     public function setActiveTab($tab)
     {
@@ -192,6 +192,16 @@ class PdcaTabBar extends Component
         $this->study_times[$task->id] = $task->study_time;
         $this->progresses[$task->id] = $task->progress;
         $this->checkboxes[$task->id] = $task->completed;
+    }
+
+    public function deleteTask($taskId)
+    {
+        $task = Task::find($taskId);
+        if ($task) {
+            $task->delete();
+            $this->loadTasks();
+            session()->flash('message', 'タスクを削除しました。');
+        }
     }
 
     public function mount()

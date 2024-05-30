@@ -25,7 +25,9 @@
     @if ($activeTab === 'plan')
     <div class="plan">
         <div class="plan__header">
+            @if (!$isOpen)
             <h2 class="plan__title">{{ $user->year }}年生{{ $test->test_name }}</h2>
+            @endif
             <div class="plan__question">
                 <p class="plan__question-text">{{ $subject->subject_name }}の目標点数は？</p>
                 <div class="plan__question-answer">
@@ -45,14 +47,19 @@
                     <li class="plan__task">
                         <div class="plan__task-row">
                             <div class="plan__task-checkbox">○</div>
-                            <div class="plan__task-deadline">
-                            @if ($isOpen)
-                                <input type="date" wire:model="deadlines.{{ $task->id }}" class="plan__task-deadline-date">
-                            @else
-                                <span class="plan__task-deadline-date">{{ $task->formatted_deadline }}</span>
-                            @endif
-                            <span class="plan__task-deadline-label">までに</span>
+                                <div class="plan__task-deadline">
+                                @if ($isOpen)
+                                    <input type="date" wire:model="deadlines.{{ $task->id }}" class="plan__task-deadline-date">
+                                @else
+                                    <span class="plan__task-deadline-date">{{ $task->formatted_deadline }}</span>
+                                @endif
+                                <span class="plan__task-deadline-label">までに</span>
                             </div>
+                            @if ($isOpen)
+                            <div class="delete-button-container">
+                                <button type="button" class="plan__task-button delete" wire:click="deleteTask({{ $task->id }})" wire:confirm="本当にこのタスクを削除してもよろしいですか？">ー</button>
+                            </div>
+                            @endif
                         </div>
                         <div class="plan__task-content">
                             @if ($isOpen)
@@ -62,13 +69,12 @@
                             @endif
                         </div>
                     </li>
-                    @if ($isOpen)
-                    <div class="plan__task-delete-button">ー</div>
-                    @endif
                 @endforeach
             </ul>
             @if ($isOpen)
-            <div class="plan__task-create-button" wire:click="addTask">＋</div>
+            <div class="create-button-container">
+                <button class="plan__task-button create" wire:click="addTask">＋</button>
+            </div>
             @endif
         </div>
     </div>
