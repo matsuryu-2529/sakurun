@@ -16,7 +16,7 @@
             <div class="action-nav {{ $activeTab === 'action' ? 'active' : '' }}" wire:click="setActiveTab('action')">Action</div>
         </div>
     </div>
-    <livewire:subject-tab-bar />
+    <livewire:students.subject-tab-bar />
     @php
         $filteredTasks = $tasks->filter(function ($task) use ($subject) {
             return $task->subject_id == $subject->id;

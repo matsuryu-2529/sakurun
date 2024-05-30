@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Students;
 
 use Livewire\Component;
 use App\Models\User;
@@ -28,7 +28,7 @@ class SubjectTabBar extends Component
 
     public function render()
     {
-        return view('livewire.subject-tab-bar', [
+        return view('livewire.students.subject-tab-bar', [
             'subjects' => $this->subjects,
         ]);
     }

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/student',  function () {
-    return view('pdca');
+    return view('students');
 });
 
 Route::get('/teacher',  function () {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Teachers;
 
 use Livewire\Component;
 
@@ -16,6 +16,6 @@ class TestResult extends Component
 
     public function render()
     {
-        return view('livewire.test-result');
+        return view('livewire.teachers.test-result');
     }
 }

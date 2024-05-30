@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Students;
 
 use Livewire\Component;
 use App\Models\User;
@@ -217,7 +217,7 @@ class PdcaTabBar extends Component
 
     public function render()
     {
-        return view('livewire.pdca-tab-bar', [
+        return view('livewire.students.pdca-tab-bar', [
             'subject' => $this->subject,
             'user' => $this->user,
             'test' => $this->test,

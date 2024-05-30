@@ -1,6 +1,6 @@
 @section('title', 'sakurun | teacher')
 @extends('layouts.teacher')
 @section('content')
-    <livewire:teacher-header />
-    <livewire:detail />
+    <livewire:teachers.header />
+    <livewire:teachers.detail />
 @endsection
