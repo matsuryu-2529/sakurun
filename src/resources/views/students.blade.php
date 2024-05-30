@@ -5,10 +5,7 @@
     <div class="app-container">
         <livewire:students.header />
         <main>
-            <livewire:students.pdca-tab-bar />
-            <!-- <livewire:students.home />
-            <livewire:students.account />
-            <livewire:students.calendar /> -->
+            <livewire:students.content />
         </main>
         <livewire:students.bottom-tab-bar />
     </div>

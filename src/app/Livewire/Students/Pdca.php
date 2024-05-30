@@ -11,7 +11,7 @@ use App\Models\Task;
 use App\Models\Review;
 use Carbon\Carbon;
 
-class PdcaTabBar extends Component
+class Pdca extends Component
 {
     public $user, $test, $subject, $scores, $tasks, $reviews;
     public $target_scores = [], $score = [], $review_contents = [],$deadlines = [], $task_contents = [], $study_times = [], $progresses = [], $checkboxes = [];
@@ -217,7 +217,7 @@ class PdcaTabBar extends Component
 
     public function render()
     {
-        return view('livewire.students.pdca-tab-bar', [
+        return view('livewire.students.pdca', [
             'subject' => $this->subject,
             'user' => $this->user,
             'test' => $this->test,
