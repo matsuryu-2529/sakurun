@@ -9,11 +9,12 @@ use App\Models\Subject;
 use App\Models\Score;
 use App\Models\Task;
 use App\Models\Review;
+use Carbon\Carbon;
 
 class PdcaTabBar extends Component
 {
     public $user, $test, $subject, $scores, $tasks, $reviews;
-    public $target_scores = [], $score = [], $formatted_deadline, $task_content, $study_time, $progress, $review_contents = [];
+    public $target_scores = [], $score = [], $review_contents = [],$deadlines = [], $task_contents = [], $study_times = [], $progresses = [], $checkboxes = [];
     public $activeTab = 'plan';
     public $activeSubjectId = 1;
     public $isOpen = false;
@@ -47,17 +48,6 @@ class PdcaTabBar extends Component
         $this->isOpen = false;
     }
 
-    /* private function resetInputFields()
-    {
-        $this->target_scores = [];
-        $this->formatted_deadline = '';
-        $this->task_content = '';
-        $this->study_time = '';
-        $this->score = [];
-        $this->progress = '';
-        $this->review_contents = [];
-    } */
-
     public function store()
     {
         /* $this->validate([
@@ -65,18 +55,15 @@ class PdcaTabBar extends Component
             'task_content' => 'required',
         ]); */
 
-        // 保存処理をここに追加
-        foreach ($this->target_scores as $subjectId => $score) {
-            Score::updateOrCreate(
-                ['subject_id' => $subjectId, 'test_id' => $this->test->id, 'user_id' => $this->user->id],
-                ['target_score' => $score]
-            );
-        }
+        $this->saveCurrentTabState();
+
+        $this->loadScores();
+        $this->loadReviews();
+        $this->loadTasks();
 
         session()->flash('message', '保存しました。');
 
         $this->closeModal();
-        // $this->resetInputFields();
     }
 
     public function edit()
@@ -90,6 +77,7 @@ class PdcaTabBar extends Component
         if ($this->isOpen) {
             $this->loadScores();
             $this->loadReviews();
+            $this->loadTasks();
         }
     }
 
@@ -98,6 +86,7 @@ class PdcaTabBar extends Component
         if ($this->isOpen) {
             $this->loadScores();
             $this->loadReviews();
+            $this->loadTasks();
         }
     }
 
@@ -118,6 +107,18 @@ class PdcaTabBar extends Component
         }
     }
 
+    public function loadTasks()
+    {
+        $this->tasks = Task::where('test_id', $this->test->id)->where('user_id', $this->user->id)->get();
+        foreach ($this->tasks as $task) {
+            $this->deadlines[$task->id] = $task->formatted_deadline_for_input;
+            $this->task_contents[$task->id] = $task->task_content;
+            $this->study_times[$task->id] = $task->study_time;
+            $this->progresses[$task->id] = $task->progress;
+            $this->checkboxes[$task->id] = $task->completed;
+        }
+    }
+
     public function saveCurrentTabState()
     {
         if ($this->activeTab === 'plan') {
@@ -128,9 +129,34 @@ class PdcaTabBar extends Component
                 $score->target_score = $this->target_scores[$this->activeSubjectId];
                 $score->save();
             }
+            $tasks = $this->tasks
+                ->where('subject_id', $this->activeSubjectId);
+            if ($tasks) {
+                foreach ($tasks as $task) {
+                    $task->deadline = $this->deadlines[$task->id];
+                    $task->task_content = $this->task_contents[$task->id];
+                    $task->save();
+                }
+            }
         } elseif ($this->activeTab === 'do') {
-
+            $tasks = $this->tasks
+                ->where('subject_id', $this->activeSubjectId);
+            if ($tasks) {
+                foreach ($tasks as $task) {
+                    $task->study_time = $this->study_times[$task->id];
+                    $task->progress = $this->progresses[$task->id];
+                    $task->save();
+                }
+            }
         } elseif ($this->activeTab === 'check') {
+            $tasks = $this->tasks
+                ->where('subject_id', $this->activeSubjectId);
+            if ($tasks) {
+                foreach ($tasks as $task) {
+                    $task->completed = $this->checkboxes[$task->id];
+                    $task->save();
+                }
+            }
             $score = $this->scores
                 ->where('subject_id', $this->activeSubjectId)
                 ->first();
@@ -149,14 +175,34 @@ class PdcaTabBar extends Component
         }
     }
 
+    public function addTask()
+    {
+        $task = new Task([
+            'test_id' => $this->test->id,
+            'user_id' => $this->user->id,
+            'subject_id' => $this->activeSubjectId,
+            'deadline' => Carbon::now()->format('Y-m-d'),
+            'task_content' => '',
+        ]);
+        $task->save();
+        $this->tasks->push($task);
+
+        $this->deadlines[$task->id] = $task->formatted_deadline_for_input;
+        $this->task_contents[$task->id] = '';
+        $this->study_times[$task->id] = $task->study_time;
+        $this->progresses[$task->id] = $task->progress;
+        $this->checkboxes[$task->id] = $task->completed;
+    }
+
     public function mount()
     {
         $this->user = User::find(1);
         $this->test = Test::find($this->user->test_id);
+        $this->activeSubjectId = $this->test->subjects()->first()->id;
         $this->subject = Subject::find($this->activeSubjectId);
         $this->loadScores();
         $this->loadReviews();
-        $this->tasks = Task::where('test_id', $this->test->id)->where('user_id', $this->user->id)->get();
+        $this->loadTasks();
     }
 
     public function render()

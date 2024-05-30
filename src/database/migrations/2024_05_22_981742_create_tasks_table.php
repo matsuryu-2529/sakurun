@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('task_content', 100);
             $table->date('deadline');
-            $table->integer('study_time');
-            $table->integer('progress');
-            $table->date('updated_date');
+            $table->integer('study_time')->default(0);
+            $table->integer('total_study_time')->default(0);
+            $table->integer('progress')->default(0);
             $table->boolean('completed')->default(false);
             $table->foreignId('test_id')->constrained('tests');
             $table->foreignId('subject_id')->constrained('subjects');

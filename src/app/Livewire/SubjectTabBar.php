@@ -3,16 +3,21 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\User;
+use App\Models\Test;
 use App\Models\Subject;
 
 class SubjectTabBar extends Component
 {
     public $activeSubjectId = 1;
-    public $subjects;
+    public $subjects, $user, $test;
 
     public function mount()
     {
-        $this->subjects = Subject::all();
+        $this->user = User::find(1);
+        $this->test = Test::find($this->user->test_id);
+        $this->activeSubjectId = $this->test->subjects()->first()->id;
+        $this->subjects = $this->test->subjects()->get();
     }
 
     public function setActiveSubjectId($subjectId)

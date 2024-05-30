@@ -34,4 +34,14 @@ class Task extends Model
     {
         return Carbon::parse($this->deadline)->format('n/j');
     }
+
+    public function getFormattedDeadlineForInputAttribute()
+    {
+        return Carbon::parse($this->deadline)->format('Y-m-d');
+    }
+
+    public function setDeadlineAttribute($value)
+    {
+        $this->attributes['deadline'] = Carbon::createFromFormat('Y-m-d', $value);
+    }
 }

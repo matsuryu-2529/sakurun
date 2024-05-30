@@ -47,7 +47,7 @@
                             <div class="plan__task-checkbox">○</div>
                             <div class="plan__task-deadline">
                             @if ($isOpen)
-                                <textarea wire:model="formatted_deadline" class="plan__task-deadline-date"></textarea>
+                                <input type="date" wire:model="deadlines.{{ $task->id }}" class="plan__task-deadline-date">
                             @else
                                 <span class="plan__task-deadline-date">{{ $task->formatted_deadline }}</span>
                             @endif
@@ -56,16 +56,20 @@
                         </div>
                         <div class="plan__task-content">
                             @if ($isOpen)
-                                <textarea wire:model="task_content" class="plan__task-text">{{ $task->task_content }}</textarea>
+                                <textarea wire:model="task_contents.{{ $task->id }}" class="plan__task-text"></textarea>
                             @else
                                 <p class="plan__task-text">{{ $task->task_content }}</p>
                             @endif
                         </div>
                     </li>
+                    @if ($isOpen)
                     <div class="plan__task-delete-button">ー</div>
+                    @endif
                 @endforeach
             </ul>
-            <div class="plan__task-create-button">＋</div>
+            @if ($isOpen)
+            <div class="plan__task-create-button" wire:click="addTask">＋</div>
+            @endif
         </div>
     </div>
     @elseif ($activeTab === 'do')
@@ -87,7 +91,7 @@
                             <div class="do__task-time">
                                 <div class="do__task-time-time">
                                     @if ($isOpen)
-                                    <textarea wire:model="study_time" class="do__task-time-value">{{ $task->study_time }}</textarea>
+                                    <textarea wire:model.live="study_times.{{ $task->id }}" class="do__task-time-value"></textarea>
                                     @else
                                     <span class="do__task-time-value">{{ $task->study_time }}</span></span>
                                     @endif
@@ -98,7 +102,7 @@
                             <div class="do__task-progress-bar">
                                 <div class="do__task-progress-value">
                                     @if ($isOpen)
-                                        <textarea wire:model="progress" class="do__task-progress-percentage">{{ $task->progress }}</textarea>
+                                        <textarea wire:model.live="progresses.{{ $task->id }}" class="do__task-progress-percentage"></textarea>
                                     @else
                                         <span class="do__task-progress-percentage">{{ $task->progress }}</span>
                                     @endif
@@ -136,9 +140,13 @@
                     <li class="check__task">
                         <div class="check__task-row">
                         @if ($isOpen)
-                        <input type="checkbox" class="check__task-checkbox">
+                        <input wire:model="checkboxes.{{ $task->id }}" type="checkbox" class="check__task-checkbox">
                         @else
-                        <div class="check__task-checkbox">✔</div>
+                            @if ($task->completed)
+                                <div class="check__task-checkbox">✔</div>
+                            @else
+                                <div class="check__task-checkbox">✖</div>
+                            @endif
                         @endif
                         <div class="check__task-deadline">
                             <span class="check__task-deadline-date">{{ $task->formatted_deadline }}</span>
