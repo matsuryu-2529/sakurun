@@ -305,6 +305,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  height: 450px;
+  overflow-y: auto;
 }
 
 .plan__task {
@@ -435,6 +437,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  height: 600px;
+  overflow-y: auto;
 }
 
 .do__task {
@@ -644,6 +648,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  height: 450px;
+  overflow-y: auto;
 }
 
 .check__task {
@@ -895,4 +901,113 @@ textarea {
 .action__reflection textarea {
   width: 100%;
   height: 150px;
+}
+
+/* ホーム画面 */
+.history {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+}
+
+.history__header {
+  text-align: center;
+}
+
+.history__title {
+  display: inline-block;
+  position: relative;
+  font-family: "Figma Hand-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 26px;
+  color: #000000;
+}
+
+.history__title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+}
+
+.history__new {
+  text-align: center;
+}
+
+.history__new-title {
+  display: inline-block;
+  position: relative;
+  font-family: "Figma Hand-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 26px;
+  color: #000000;
+}
+
+.history__new-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+}
+
+.history__new {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history__button {
+  height: 46px;
+  background-color: #ceafaf;
+  border-radius: 20px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in, transform 0.2s ease-in, box-shadow 0.2s ease-in;
+}
+
+.history__button:hover {
+  background-color: #b09090;
+  transform: translate(2px, 2px);
+  box-shadow: 0px 12px 5px -8px rgba(0, 0, 0, 0.2);
+}
+
+.history__button__text {
+  font-family: "Anonymous Pro", Helvetica;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 26px;
+  white-space: nowrap;
+}
+
+.history__new-item {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history__new-test {
+  font-family: "Anonymous Pro", Helvetica;
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 40px;
+  color: #000000;
+  text-align: center;
+  padding: 5px;
 }

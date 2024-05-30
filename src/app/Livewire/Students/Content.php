@@ -8,7 +8,7 @@ class Content extends Component
 {
     public $activeTab = 'home';
 
-    protected $listeners = ['tabChanged' => 'updateTab'];
+    protected $listeners = ['updateTab'];
 
     public function updateTab($tab)
     {

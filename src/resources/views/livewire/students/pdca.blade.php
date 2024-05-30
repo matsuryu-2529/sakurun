@@ -26,7 +26,7 @@
     <div class="plan">
         <div class="plan__header">
             @if (!$isOpen)
-            <h2 class="plan__title">{{ $user->year }}年生{{ $test->test_name }}</h2>
+            <h2 class="plan__title">{{ $test->test_name }}</h2>
             @endif
             <div class="plan__question">
                 <p class="plan__question-text">{{ $subject->subject_name }}の目標点数は？</p>
@@ -184,7 +184,7 @@
         <div class="action__review">
             @if ($isOpen)
                 <div class="review-button">
-                    <bottom class="review-button__text" wire:click="aiReview()">AIにレビューしてもらう</bottom>
+                    <div class="review-button__text" wire:click="aiReview()">AIにレビューしてもらう</div>
                 </div>
                 <p class="action__review-text">{{ $reviews->where('subject_id', $subject->id)->first()->ai_review }}</p>
             @else

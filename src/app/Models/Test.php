@@ -9,7 +9,7 @@ class Test extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['test_name'];
+    protected $fillable = ['test_name', 'year'];
 
     public function subjects()
     {

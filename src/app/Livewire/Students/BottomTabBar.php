@@ -11,11 +11,11 @@ class BottomTabBar extends Component
     public function setActiveTab($tab)
     {
         $this->activeTab = $tab;
-        $this->dispatch('tabChanged', $tab);
+        $this->dispatch('updateTab', $tab);
     }
 
     public function render()
     {
-        return view('livewire.students.bottom-tab-bar');
+        return view('livewire.students.bottom-tab-bar', ['activeTab' => $this->activeTab]);
     }
 }
