@@ -41,7 +41,7 @@
                     <div class="tasks">
                         <div class="task">
                             <span class="task-status">○</span>
-                            <span class="task-deadline">5/20 までに</span>
+                            <span class="task-deadline">6/1 までに</span>
                             <span class="task-title">教科書 P.100～150</span>
                             <span class="task-progress">| 80%</span>
                         </div>
@@ -73,6 +73,17 @@
                         <!-- コミュ英のタスクをここに追加 -->
                     </div>
                 @endif
+
+                <div class="plan-subject" wire:click="toggleSection('ei')">
+                    英表
+                    <span class="arrow">{{ in_array('ei', $openSections) ? '▲' : '▼' }}</span>
+                </div>
+                @if (in_array('ei', $openSections))
+                    <div class="tasks">
+                        <!-- 英表のタスクをここに追加 -->
+                    </div>
+                @endif
+
             </div>
         </section>
         <div class="separate-line"></div>

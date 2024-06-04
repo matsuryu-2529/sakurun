@@ -21,6 +21,8 @@
         $filteredTasks = $tasks->filter(function ($task) use ($subject) {
             return $task->subject_id == $subject->id;
         });
+
+        $score = $scores->where('subject_id', $subject->id)->first();
     @endphp
     @if ($activeTab === 'plan')
     <div class="plan">
@@ -32,9 +34,9 @@
                 <p class="plan__question-text">{{ $subject->subject_name }}の目標点数は？</p>
                 <div class="plan__question-answer">
                     @if ($isOpen)
-                        <textarea wire:model="target_scores.{{ $subject->id }}" class="plan__question-answer-score"></textarea>
+                        <textarea wire:model="target_scores.{{ $score->id }}" class="plan__question-answer-score"></textarea>
                     @else
-                        <span class="plan__question-answer-score">{{ $scores->where('subject_id', $subject->id)->first()->target_score }}</span>
+                        <span class="plan__question-answer-score">{{ $score ? $score->target_score : 0 }}</span>
                     @endif
                     <span class="plan__question-answer-unit">点</span>
                 </div>
@@ -131,9 +133,9 @@
             <p class="check__question-text">後期期末テストの点数は？</p>
             <div class="check__question-answer">
                 @if ($isOpen)
-                    <textarea wire:model="score.{{ $subject->id }}" class="check__question-answer-score"></textarea>
+                    <textarea wire:model="score.{{ $score->id }}" class="check__question-answer-score"></textarea>
                 @else
-                    <span class="check__question-answer-score">{{ $scores->where('subject_id', $subject->id)->first()->score }}</span>
+                    <span class="check__question-answer-score">{{ $score ? $score->score : 0 }}</span>
                 @endif
                 <span class="check__question-answer-unit">点</span>
             </div>
@@ -175,7 +177,7 @@
         <div class="action__content">
             <div class="action__reflection">
                 @if ($isOpen)
-                    <textarea wire:model="review_contents.{{ $subject->id }}" class="action__reflection-text"></textarea>
+                    <textarea wire:model="review_contents.{{ $review->id }}" class="action__reflection-text"></textarea>
                 @else
                     <p class="action__reflection-text">{{ $reviews->where('subject_id', $subject->id)->first()->content }}</p>
                 @endif

@@ -19,19 +19,19 @@
         </div>
         <div class="history__new">
             <p class="history__new-title">次のテストに向けて新しいPDCAを作成する</p>
-            <div class="history__button">
+            <div class="history__button" wire:click="createNewPdca">
                 <div class="history__button__text">
                     新規PDCAを作成する
                 </div>
             </div>
             <div class="history__new-item">
-                <select class="history__new-test">
+                <select class="history__new-test" wire:model="selectedTestId">
+                    <option value="">テストを選択してください</option>
                     @foreach ($tests as $test)
-                        <option>{{ $test->test_name }}</option>
+                        <option value="{{ $test->id }}">{{ $test->test_name }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
     </div>
-
 </div>

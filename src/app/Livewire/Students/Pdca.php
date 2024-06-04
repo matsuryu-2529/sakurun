@@ -18,7 +18,7 @@ class Pdca extends Component
     public $activeTab = 'plan';
     public $activeSubjectId = 1;
     public $isOpen = false;
-    protected $listeners = ['activeSubjectIdUpdated', 'activeTabUpdated', 'deleteTask'];
+    protected $listeners = ['activeSubjectIdUpdated', 'activeTabUpdated', 'deleteTask', 'navigateToPdca'];
 
     public function setActiveTab($tab)
     {
@@ -90,12 +90,31 @@ class Pdca extends Component
         }
     }
 
+    /* public function navigateToPdca($testId)
+    {
+        // dd($testId);
+        $this->user = User::find(1);
+        $this->user->test_id = $testId;
+
+        $this->test = Test::find($this->user->test_id);
+        $this->activeSubjectId = $this->test->subjects()->first()->id;
+        $this->subject = Subject::find($this->activeSubjectId);
+
+        // $this->addScores();
+        // $this->addReviews();
+
+        $this->loadScores();
+        $this->loadReviews();
+
+        // $this->openModal();
+    } */
+
     public function loadScores()
     {
         $this->scores = Score::where('test_id', $this->test->id)->where('user_id', $this->user->id)->get();
         foreach ($this->scores as $score) {
-            $this->target_scores[$score->subject_id] = $score->target_score;
-            $this->score[$score->subject_id] = $score->score;
+            $this->target_scores[$score->id] = $score->target_score;
+            $this->score[$score->id] = $score->score;
         }
     }
 
@@ -103,7 +122,7 @@ class Pdca extends Component
     {
         $this->reviews = Review::where('test_id', $this->test->id)->where('user_id', $this->user->id)->get();
         foreach ($this->reviews as $review) {
-            $this->review_contents[$review->subject_id] = $review->content;
+            $this->review_contents[$review->id] = $review->content;
         }
     }
 
@@ -126,7 +145,7 @@ class Pdca extends Component
                 ->where('subject_id', $this->activeSubjectId)
                 ->first();
             if ($score) {
-                $score->target_score = $this->target_scores[$this->activeSubjectId];
+                $score->target_score = $this->target_scores[$score->id];
                 $score->save();
             }
             $tasks = $this->tasks
@@ -161,7 +180,7 @@ class Pdca extends Component
                 ->where('subject_id', $this->activeSubjectId)
                 ->first();
             if ($score) {
-                $score->score = $this->score[$this->activeSubjectId];
+                $score->score = $this->score[$score->id];
                 $score->save();
             }
         } elseif ($this->activeTab === 'action') {
@@ -169,7 +188,7 @@ class Pdca extends Component
                 ->where('subject_id', $this->activeSubjectId)
                 ->first();
             if ($review) {
-                $review->content = $this->review_contents[$this->activeSubjectId];
+                $review->content = $this->review_contents[$review->id];
                 $review->save();
             }
         }
@@ -192,6 +211,43 @@ class Pdca extends Component
         $this->study_times[$task->id] = $task->study_time;
         $this->progresses[$task->id] = $task->progress;
         $this->checkboxes[$task->id] = $task->completed;
+    }
+
+    public function addScores()
+    {
+        $subjects = $this->test->subjects()->get();
+        foreach ($subjects as $subject) {
+            $score = new Score([
+                'test_id' => $this->test->id,
+                'user_id' => $this->user->id,
+                'subject_id' => $subject->id,
+                'target_score' => 0,
+                'score' => 0,
+            ]);
+            $score->save();
+            $this->scores->push($score);
+
+            $this->target_scores[$subject->id] = 0;
+            $this->score[$subject->id] = 0;
+        }
+    }
+
+    public function addReviews()
+    {
+        $subjects = $this->test->subjects()->get();
+        foreach ($subjects as $subject) {
+            $review = new Review([
+                'test_id' => $this->test->id,
+                'user_id' => $this->user->id,
+                'subject_id' => $subject->id,
+                'content' => '',
+                'ai_review' => '',
+            ]);
+            $review->save();
+            $this->reviews->push($review);
+
+            $this->review_contents[$subject->id] = '';
+        }
     }
 
     public function deleteTask($taskId)

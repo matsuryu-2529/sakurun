@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->integer('target_score');
-            $table->integer('score');
+            $table->integer('target_score')->default(0);
+            $table->integer('score')->default(0);
             $table->foreignId('test_id')->constrained('tests');
             $table->foreignId('subject_id')->constrained('subjects');
             $table->foreignId('user_id')->constrained('users');

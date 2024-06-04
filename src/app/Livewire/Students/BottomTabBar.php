@@ -8,6 +8,8 @@ class BottomTabBar extends Component
 {
     public $activeTab = 'home';
 
+    protected $listeners = ['setActiveTab'];
+
     public function setActiveTab($tab)
     {
         $this->activeTab = $tab;

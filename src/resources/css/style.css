@@ -373,6 +373,14 @@
   align-items: center;
 }
 
+@media (min-width: 1000px) {
+  .create-button-container {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+  }
+}
+
 .delete-button-container {
   margin-left: 10px;
 }
@@ -869,7 +877,7 @@ textarea {
 }
 
 .plan__question-answer textarea {
-  width: 50px;
+  width: 70px;
   height: 50px;
 }
 
@@ -889,12 +897,12 @@ textarea {
 }
 
 .do__task-progress-value textarea {
-  width: 40px;
+  width: 60px;
   height: 40px;
 }
 
 .check__question-answer textarea {
-  width: 50px;
+  width: 70px;
   height: 50px;
 }
 
