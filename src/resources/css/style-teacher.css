@@ -259,34 +259,12 @@ a.details {
   margin: 0 auto 10px;
 }
 
-.pie-total {
-  background: conic-gradient(#afceb2 0% 40%,
-      #ceafaf 40% 60%,
-      #B0AFCE 60% 100%
-    );
-}
-
 .pie-text {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-}
-
-.pie-math1-text {
-  top: 35%;
-  left: 75%;
-}
-
-.pie-mathB-text {
-  top: 75%;
-  left: 50%;
-}
-
-.pie-comm-text {
-  top: 35%;
-  left: 25%;
 }
 
 .subject-name {
@@ -297,6 +275,22 @@ a.details {
 .subject-time {
   font-size: 20px;
   color: #000000;
+}
+
+/* Example positions for the pie text elements, adjust as needed */
+.pie-math1-text {
+  top: 25%;
+  left: 75%;
+}
+
+.pie-mathb-text {
+  top: 75%;
+  left: 50%;
+}
+
+.pie-comm-text {
+  top: 25%;
+  left: 25%;
 }
 
 .task-dropdown {

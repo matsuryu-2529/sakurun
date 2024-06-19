@@ -177,7 +177,7 @@
         <div class="action__content">
             <div class="action__reflection">
                 @if ($isOpen)
-                    <textarea wire:model="review_contents.{{ $review->id }}" class="action__reflection-text"></textarea>
+                    <textarea wire:model="review_contents.{{ $subject->id }}" class="action__reflection-text"></textarea>
                 @else
                     <p class="action__reflection-text">{{ $reviews->where('subject_id', $subject->id)->first()->content }}</p>
                 @endif

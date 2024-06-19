@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestResultController;
+use App\Http\Controllers\DetailController;
 
 
 Route::get('/student',  function () {
@@ -14,6 +15,4 @@ Route::get('/teacher',  function () {
 
 Route::get('/test-result/{id}', [TestResultController::class, 'showTestResult'])->name('test-result');
 
-Route::get('/detail/{id}',  function () {
-    return view('detail');
-});
+Route::get('/detail/{id}', [DetailController::class, 'showDetail'])->name('detail');
