@@ -103,13 +103,13 @@
   width: 100%;
   height: 39px;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
   cursor: pointer;
 }
 
 .subject-nav__item {
   position: relative;
+  margin: 5px;
 }
 
 .subject-nav__item--active {
@@ -305,6 +305,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  height: 450px;
+  overflow-y: auto;
 }
 
 .plan__task {
@@ -365,6 +367,48 @@
   color: #000000;
 }
 
+.create-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 1000px) {
+  .create-button-container {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+  }
+}
+
+.delete-button-container {
+  margin-left: 10px;
+}
+
+.plan__task-button {
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  border-radius: 50%;
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.plan__task-button.delete {
+  background-color: #d9534f;
+}
+
+.plan__task-button.create {
+  background-color: #5cb85c;
+}
+
 /* Do画面 */
 .do {
   position: absolute;
@@ -401,6 +445,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  height: 600px;
+  overflow-y: auto;
 }
 
 .do__task {
@@ -441,11 +487,12 @@
 
 .do__task-progress-row {
   justify-content: space-between;
-  align-items: center;
+  align-self: center;
   margin-bottom: 5px;
 }
 
 .do__task-time {
+  display: flex;
   font-family: "Anonymous Pro", Helvetica;
   font-size: 30px;
   font-weight: 400;
@@ -453,6 +500,11 @@
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 5px;
+}
+
+.do__task-time-time {
+  display: flex;
+  align-items: baseline;
 }
 
 .do__task-time-value,
@@ -483,6 +535,8 @@
   font-weight: 400;
   color: #000000;
   margin-right: 10px;
+  display: flex;
+  align-items: baseline;
 }
 
 .do__task-progress-percentage {
@@ -602,6 +656,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
+  height: 450px;
+  overflow-y: auto;
 }
 
 .check__task {
@@ -821,7 +877,7 @@ textarea {
 }
 
 .plan__question-answer textarea {
-  width: 50px;
+  width: 70px;
   height: 50px;
 }
 
@@ -841,16 +897,125 @@ textarea {
 }
 
 .do__task-progress-value textarea {
-  width: 40px;
+  width: 60px;
   height: 40px;
 }
 
 .check__question-answer textarea {
-  width: 50px;
+  width: 70px;
   height: 50px;
 }
 
 .action__reflection textarea {
   width: 100%;
   height: 150px;
+}
+
+/* ホーム画面 */
+.history {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+}
+
+.history__header {
+  text-align: center;
+}
+
+.history__title {
+  display: inline-block;
+  position: relative;
+  font-family: "Figma Hand-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 26px;
+  color: #000000;
+}
+
+.history__title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+}
+
+.history__new {
+  text-align: center;
+}
+
+.history__new-title {
+  display: inline-block;
+  position: relative;
+  font-family: "Figma Hand-Regular", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 26px;
+  color: #000000;
+}
+
+.history__new-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+}
+
+.history__new {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history__button {
+  height: 46px;
+  background-color: #ceafaf;
+  border-radius: 20px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in, transform 0.2s ease-in, box-shadow 0.2s ease-in;
+}
+
+.history__button:hover {
+  background-color: #b09090;
+  transform: translate(2px, 2px);
+  box-shadow: 0px 12px 5px -8px rgba(0, 0, 0, 0.2);
+}
+
+.history__button__text {
+  font-family: "Anonymous Pro", Helvetica;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 26px;
+  white-space: nowrap;
+}
+
+.history__new-item {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history__new-test {
+  font-family: "Anonymous Pro", Helvetica;
+  font-size: 25px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 40px;
+  color: #000000;
+  text-align: center;
+  padding: 5px;
 }
