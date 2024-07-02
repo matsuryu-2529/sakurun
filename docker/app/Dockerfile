@@ -3,8 +3,8 @@ FROM php:8.2-fpm
 ENV TZ Asia/Tokyo
 
 RUN apt-get update && \
-    apt-get install -y git unzip libzip-dev libicu-dev libonig-dev && \
-    docker-php-ext-install intl pdo_mysql zip bcmath
+    apt-get install -y git unzip libzip-dev libicu-dev libonig-dev libxml2-dev libcurl4-openssl-dev && \
+    docker-php-ext-install intl pdo_mysql zip bcmath xml dom curl
 
 COPY ./docker/app/php.ini /usr/local/etc/php/php.ini
 

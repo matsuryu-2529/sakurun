@@ -1,0 +1,557 @@
+/* 基本スタイル */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Anonymous Pro', Helvetica, sans-serif;
+}
+
+/* ヘッダー */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #ceafaf;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 60px;
+  height: 60px;
+}
+
+.title {
+  font-size: 40px;
+  color: #ffffff;
+  margin-left: 20px;
+}
+
+.logout {
+  font-size: 20px;
+  color: #ffffff;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* メインコンテンツ */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  margin-top: 50px;
+  box-sizing: border-box;
+}
+
+.student-list {
+  width: 100%;
+}
+
+.header-row,
+.student-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  padding: 12px 0;
+}
+
+.column {
+  font-size: larger;
+}
+
+.column,
+.student-name,
+.grade,
+.last-updated,
+.test-result,
+.details {
+  width: 20%;
+  text-align: center;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a.test-result,
+a.details {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a.test-result {
+  color: #AFCEB2;
+}
+
+a.details {
+  color: #B4AFCE;
+}
+
+/* サイドバー（検索） */
+.search {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: auto;
+}
+
+.search input {
+  padding: 10px;
+  font-size: 20px;
+  border: 1px solid #a8a8a8;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.search button {
+  padding: 10px 20px;
+  font-size: 20px;
+  color: #ffffff;
+  background-color: #ceafaf;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* ページネーション */
+.pagination {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.page,
+.prev-page,
+.next-page {
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin: 0 5px;
+  font-size: 30px;
+  color: #000;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page:hover,
+.prev-page:hover,
+.next-page:hover {
+  background-color: #ceafaf;
+  color: #ffffff;
+}
+
+.page.active {
+  background-color: #ceafaf;
+  color: #ffffff;
+}
+
+/* 生徒詳細画面 */
+.subtitle {
+  position: absolute;
+  top: 70px;
+  left: 40px;
+  font-size: 30px;
+  color: #000000;
+}
+
+.content {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.separate-line {
+  width: 1.5px;
+  background-color: #000;
+  margin: 0 20px;
+  display: inline-block;
+}
+
+.study-summary {
+  width: 30%;
+  padding: 20px;
+}
+
+.task-list {
+  width: 40%;
+  padding: 20px;
+}
+
+.results {
+  width: 20%;
+  padding: 20px;
+}
+
+.nav-item {
+  font-size: 40px;
+  color: #000000;
+  text-decoration: none;
+  text-align: center;
+}
+
+.under-line {
+  width: 100%;
+  height: 1.5px;
+  background-color: #000000;
+  margin-bottom: 20px;
+}
+
+.total-time {
+  font-size: 30px;
+  color: #000000;
+  text-align: center;
+}
+
+.total-hours {
+  font-size: 40px;
+}
+
+.subject-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.subject {
+  text-align: center;
+  position: relative;
+}
+
+.pie {
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  position: relative;
+  margin: 0 auto 10px;
+}
+
+.pie-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.subject-name {
+  font-size: 15px;
+  color: #000000;
+}
+
+.subject-time {
+  font-size: 20px;
+  color: #000000;
+}
+
+/* Example positions for the pie text elements, adjust as needed */
+.pie-math1-text {
+  top: 25%;
+  left: 75%;
+}
+
+.pie-mathb-text {
+  top: 75%;
+  left: 50%;
+}
+
+.pie-comm-text {
+  top: 25%;
+  left: 25%;
+}
+
+.task-dropdown {
+  font-family: Arial, sans-serif;
+}
+
+.plan-subject {
+  background-color: #d8b3b3;
+  padding: 10px;
+  margin: 5px 0 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plan-subject:hover {
+  background-color: #c79a9a;
+}
+
+.task {
+  margin: 5px 5px 0;
+  display: flex;
+
+}
+
+.task-title {
+  display: inline-block;
+  width: 60%;
+}
+
+.task-deadline {
+  display: inline-block;
+  width: 25%;
+}
+
+.task-status {
+  display: inline-block;
+  width: 3%;
+}
+
+.task-progress {
+  display: inline-block;
+  width: 12%;
+}
+
+.arrow {
+  font-size: 20px;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.result-subject,
+.result-score {
+  font-size: 20px;
+  color: #000000;
+}
+
+.total-score {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 0;
+  font-size: 30px;
+  color: #000000;
+}
+
+.total-score-points {
+  font-size: 30px;
+  color: #000000;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 100px;
+  position: absolute;
+  bottom: 10px;
+}
+
+.back-button:hover,
+.pdf-button:hover {
+  background-color: #c79a9a;
+}
+
+.back-button,
+.pdf-button {
+  font-size: 40px;
+  color: #ffffff;
+  background-color: #ceafaf;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.back-button {
+  position: absolute;
+  left: 20px;
+  bottom: 10px;
+}
+
+.pdf-button {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+}
+
+/* テスト結果画面 */
+.summary {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 70vh;
+}
+
+.circle-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #FFF2F2, #ceafaf);
+  color: #000000;
+  position: relative;
+  margin: 50px 0;
+}
+
+.circle-title {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.circle-subtitle {
+  font-size: 25px;
+  display: flex;
+  align-items: baseline;
+}
+
+.total-points {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.chart-summary {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 70%;
+  border: 1.5px solid #000000;
+  margin-top: 30px;
+}
+
+.chart-nav {
+  position: absolute;
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer;
+}
+
+.chart-nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+}
+
+.chart-nav__item {
+  position: relative;
+}
+
+.chart-nav__item--active {
+  background-color: #ffffff;
+}
+
+.subject-nav__label {
+  font-family: "Figma Hand-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 26px;
+  color: #7f7f7f;
+  margin: 5px 0 5px;
+}
+
+.subject-nav__underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fcc8c8;
+}
+
+.subject-nav__separator {
+  width: .8px;
+  height: 80%;
+  background-color: #000000;
+}
+
+.chart-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 400px;
+  align-items: flex-end;
+}
+
+.bar {
+  width: 50px;
+  background-color: #ceafaf;
+  color: #ffffff;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+}
+
+.test-titles {
+  position: absolute;
+  bottom: -60px;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 100px;
+  align-items: flex-end;
+}
+
+.test {
+  color: #000000;
+  text-align: center;
+  font-size: 15px;
+  transform: rotate(40deg);
+}

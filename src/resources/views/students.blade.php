@@ -3,11 +3,11 @@
 @section('content')
 <div class="app">
     <div class="app-container">
-        <livewire:header />
+        <livewire:students.header />
         <main>
-            <livewire:pdca-tab-bar />
+            <livewire:students.content />
         </main>
-        <livewire:bottom-tab-bar />
+        <livewire:students.bottom-tab-bar />
     </div>
 </div>
 @endsection
