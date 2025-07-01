@@ -11,6 +11,10 @@ services:
     - db
     env_file:
       - ./src/.env
+    # Laravel推奨のユーザー設定
+    user: "root"  # entrypointで権限設定を行うためrootで起動
+    environment:
+      - LARAVEL_PERMISSIONS_AUTO=true
   web:
     build:
       context: .
