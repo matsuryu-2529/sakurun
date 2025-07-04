@@ -34,11 +34,14 @@
                 <p class="plan__question-text">{{ $subject->subject_name }}の目標点数は？</p>
                 <div class="plan__question-answer">
                     @if ($isOpen)
-                        <textarea wire:model="target_scores.{{ $score->id }}" class="plan__question-answer-score"></textarea>
+                        <select wire:model="target_scores.{{ $score->id }}" class="plan__question-answer-select">
+                            @foreach($scoreOptions as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
                     @else
-                        <span class="plan__question-answer-score">{{ $score ? $score->target_score : 0 }}</span>
+                        <span class="plan__question-answer-score">{{ $score ? $score->target_score : 0 }}点</span>
                     @endif
-                    <span class="plan__question-answer-unit">点</span>
                 </div>
             </div>
         </div>
@@ -87,7 +90,7 @@
         </div>
         <div class="do__tasks">
             @foreach($filteredTasks as $task)
-                <div class="do__task">
+                <div class="do__task {{ $task->progress == 100 ? 'completed' : '' }}">
                     <div class="do__task-row">
                         <div class="do__task-checkbox">○</div>
                         <div class="do__task-content">
@@ -97,24 +100,31 @@
                     <div class="do__task-progress">
                         <div class="do__task-progress-row">
                             <div class="do__task-time">
+                                <span class="do__task-time-total"><span class="do__task-time-label">合計：</span>{{ $this->getTotalStudyTimeForTask($task->id) }}<span class="do__task-time-unit">h</span></span>
                                 <div class="do__task-time-time">
                                     @if ($isOpen)
-                                    <textarea wire:model.live="study_times.{{ $task->id }}" class="do__task-time-value"></textarea>
-                                    @else
-                                    <span class="do__task-time-value">{{ $task->study_time }}</span></span>
+                                    <div class="do__task-input-container">
+                                        <label class="do__task-input-label">今日</label>
+                                        <select wire:model.live="daily_study_times.{{ $task->id }}" class="do__task-time-select">
+                                            @foreach($studyTimeOptions as $value => $label)
+                                                <option value="{{ $value }}">{{ $label }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     @endif
-                                    <span class="do__task-time-unit">h</span>
                                 </div>
-                                <span class="do__task-time-total"><span class="do__task-time-label">合計：</span>5<span class="do__task-time-unit">h</span></span>
                             </div>
                             <div class="do__task-progress-bar">
                                 <div class="do__task-progress-value">
                                     @if ($isOpen)
-                                        <textarea wire:model.live="progresses.{{ $task->id }}" class="do__task-progress-percentage"></textarea>
+                                        <select wire:model.live="progresses.{{ $task->id }}" class="do__task-progress-select">
+                                            @foreach($progressOptions as $value => $label)
+                                                <option value="{{ $value }}">{{ $label }}</option>
+                                            @endforeach
+                                        </select>
                                     @else
-                                        <span class="do__task-progress-percentage">{{ $task->progress }}</span>
+                                        <span class="do__task-progress-percentage">{{ $task->progress }}%</span>
                                     @endif
-                                    <span class="do__task-progress-unit">%</span>
                                 </div>
                                 <div class="do__progress-bar">
                                     <div class="do__progress-fill" style="width: {{ $task->progress }}%;"></div>
@@ -133,11 +143,14 @@
             <p class="check__question-text">後期期末テストの点数は？</p>
             <div class="check__question-answer">
                 @if ($isOpen)
-                    <textarea wire:model="score.{{ $score->id }}" class="check__question-answer-score"></textarea>
+                    <select wire:model="score.{{ $score->id }}" class="check__question-answer-select">
+                        @foreach($scoreOptions as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </select>
                 @else
-                    <span class="check__question-answer-score">{{ $score ? $score->score : 0 }}</span>
+                    <span class="check__question-answer-score">{{ $score ? $score->score : 0 }}点</span>
                 @endif
-                <span class="check__question-answer-unit">点</span>
             </div>
             </div>
         </div>
@@ -145,7 +158,7 @@
             <p class="check__tasks-text">完了したタスクは？</p>
             <ul class="check__tasks-list">
                 @foreach($filteredTasks as $task)
-                    <li class="check__task">
+                    <li class="check__task {{ $task->completed ? 'completed' : '' }}">
                         <div class="check__task-row">
                         @if ($isOpen)
                         <input wire:model="checkboxes.{{ $task->id }}" type="checkbox" class="check__task-checkbox">

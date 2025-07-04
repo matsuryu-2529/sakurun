@@ -13,6 +13,14 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
+     * The name of the column to be used for authentication.
+     */
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

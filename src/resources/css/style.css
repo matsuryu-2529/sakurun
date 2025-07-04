@@ -519,7 +519,6 @@
 
 .do__task-time-label {
   font-size: 20px;
-  margin-left: 20px;
   margin-right: 5px;
 }
 
@@ -894,6 +893,124 @@ textarea {
 .do__task-time textarea {
   width: 40px;
   height: 40px;
+}
+
+.do__task-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.do__task-input-label {
+  font-family: "Anonymous Pro", Helvetica;
+  font-size: 12px;
+  font-weight: 400;
+  color: #666666;
+  background-color: #f0f0f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #ceafaf;
+  white-space: nowrap;
+}
+
+/* 選択式UI共通スタイル */
+select {
+  font-family: "Anonymous Pro", Helvetica;
+  border: 2px solid #ceafaf;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 4px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in, box-shadow 0.2s ease-in;
+}
+
+select:focus {
+  outline: none;
+  border-color: #b09090;
+  box-shadow: 0 0 5px rgba(206, 175, 175, 0.5);
+}
+
+select:hover {
+  border-color: #b09090;
+}
+
+/* 学習時間選択 */
+.do__task-time-select {
+  min-width: 60px;
+  height: 35px;
+}
+
+/* 進捗率選択 */
+.do__task-progress-select {
+  min-width: 70px;
+  height: 35px;
+}
+
+/* 点数選択 */
+.plan__question-answer-select,
+.check__question-answer-select {
+  min-width: 80px;
+  height: 40px;
+  font-size: 16px;
+}
+
+/* 完了タスクのスタイル */
+.check__task.completed {
+  background-color: #f0f8f0;
+  border: 2px solid #90c695;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.check__task.completed .check__task-text {
+  color: #2d5a2d;
+  font-weight: 500;
+}
+
+.check__task.completed .check__task-checkbox {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* 進捗率100%のタスクのスタイル */
+.do__task.completed {
+  background-color: #f0f8f0;
+  border: 2px solid #90c695;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.do__task.completed .do__task-text {
+  color: #2d5a2d;
+  font-weight: 500;
+}
+
+/* 成功メッセージのスタイル */
+.alert-success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 10px 0;
+  font-family: "Anonymous Pro", Helvetica;
+  font-size: 14px;
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  min-width: 300px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .do__task-progress-value textarea {

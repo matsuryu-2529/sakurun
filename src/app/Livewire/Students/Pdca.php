@@ -15,9 +15,16 @@ class Pdca extends Component
 {
     public $user, $test, $subject, $scores, $tasks, $reviews;
     public $target_scores = [], $score = [], $review_contents = [],$deadlines = [], $task_contents = [], $study_times = [], $progresses = [], $checkboxes = [];
+    public $daily_study_times = []; // 今日の学習時間入力用
+    public $initial_total_times = []; // 編集開始時の累積時間
     public $activeTab = 'plan';
     public $activeSubjectId = 1;
     public $isOpen = false;
+
+    // 選択肢の配列
+    public $studyTimeOptions = [];
+    public $progressOptions = [];
+    public $scoreOptions = [];
     protected $listeners = ['activeSubjectIdUpdated', 'activeTabUpdated', 'deleteTask', 'navigateToPdca'];
 
     public function setActiveTab($tab)
@@ -68,6 +75,11 @@ class Pdca extends Component
 
     public function edit()
     {
+        // 編集開始時に累積時間を保存
+        foreach ($this->tasks as $task) {
+            $this->initial_total_times[$task->id] = (float)$task->study_time;
+            $this->daily_study_times[$task->id] = 0; // 今日の入力時間は0から開始
+        }
         $this->openModal();
     }
 
@@ -93,7 +105,7 @@ class Pdca extends Component
     /* public function navigateToPdca($testId)
     {
         // dd($testId);
-        $this->user = User::find(1);
+        $this->user = auth()->user();
         $this->user->test_id = $testId;
 
         $this->test = Test::find($this->user->test_id);
@@ -135,6 +147,8 @@ class Pdca extends Component
             $this->study_times[$task->id] = $task->study_time;
             $this->progresses[$task->id] = $task->progress;
             $this->checkboxes[$task->id] = $task->completed;
+            $this->daily_study_times[$task->id] = 0; // 今日の入力時間を初期化
+            $this->initial_total_times[$task->id] = (float)$task->study_time; // 累積時間を保存
         }
     }
 
@@ -162,8 +176,21 @@ class Pdca extends Component
                 ->where('subject_id', $this->activeSubjectId);
             if ($tasks) {
                 foreach ($tasks as $task) {
-                    $task->study_time = $this->study_times[$task->id];
+                    // 累積時間 = 編集開始時の時間 + 今日入力した時間
+                    $newTotalTime = $this->initial_total_times[$task->id] + (float)$this->daily_study_times[$task->id];
+                    $task->study_time = $newTotalTime;
                     $task->progress = $this->progresses[$task->id];
+
+                    // 進捗率が100%の場合、自動的にチェック済みにする
+                    // 進捗率が100%未満の場合、チェックを外す
+                    if ($this->progresses[$task->id] == 100) {
+                        $task->completed = true;
+                        $this->checkboxes[$task->id] = true; // フロントエンドの状態も更新
+                    } elseif ($this->progresses[$task->id] < 100) {
+                        $task->completed = false;
+                        $this->checkboxes[$task->id] = false; // フロントエンドの状態も更新
+                    }
+
                     $task->save();
                 }
             }
@@ -211,6 +238,8 @@ class Pdca extends Component
         $this->study_times[$task->id] = $task->study_time;
         $this->progresses[$task->id] = $task->progress;
         $this->checkboxes[$task->id] = $task->completed;
+        $this->daily_study_times[$task->id] = 0;
+        $this->initial_total_times[$task->id] = (float)$task->study_time;
     }
 
     public function addScores()
@@ -260,15 +289,69 @@ class Pdca extends Component
         }
     }
 
+        public function getTotalStudyTimeForTask($taskId)
+    {
+        // 編集中の場合は累積時間を計算、そうでなければデータベースの値を使用
+        if ($this->isOpen && isset($this->initial_total_times[$taskId]) && isset($this->daily_study_times[$taskId])) {
+            return $this->initial_total_times[$taskId] + (float)$this->daily_study_times[$taskId];
+        } else {
+            $task = $this->tasks->where('id', $taskId)->first();
+            return $task ? (float)$task->study_time : 0;
+        }
+    }
+
+    public function updatedProgresses($value, $taskId)
+    {
+        // 進捗率が変更されたときにリアルタイムでチェックボックスの状態を更新
+        if ($value == 100) {
+            $this->checkboxes[$taskId] = true;
+            // タスク名を取得してメッセージを表示
+            $task = $this->tasks->where('id', $taskId)->first();
+            if ($task) {
+                session()->flash('message', '「' . $task->task_content . '」が完了しました！Check画面で確認できます。');
+            }
+        } elseif ($value < 100) {
+            $this->checkboxes[$taskId] = false;
+        }
+    }
+
     public function mount()
     {
-        $this->user = User::find(1);
+        $this->user = auth()->user();
         $this->test = Test::find($this->user->test_id);
         $this->activeSubjectId = $this->test->subjects()->first()->id;
         $this->subject = Subject::find($this->activeSubjectId);
+
+        // 選択肢を初期化
+        $this->initializeOptions();
+
         $this->loadScores();
         $this->loadReviews();
         $this->loadTasks();
+    }
+
+    private function initializeOptions()
+    {
+        // 学習時間の選択肢（0から10時間まで0.5時間刻み）
+        $this->studyTimeOptions = [];
+        for ($i = 0; $i <= 20; $i++) {
+            $value = $i * 0.5;
+            $this->studyTimeOptions[$value] = $value . 'h';
+        }
+
+        // 進捗率の選択肢（0から100%まで10%刻み）
+        $this->progressOptions = [];
+        for ($i = 0; $i <= 10; $i++) {
+            $value = $i * 10;
+            $this->progressOptions[$value] = $value . '%';
+        }
+
+        // 点数の選択肢（0から100点まで5点刻み）
+        $this->scoreOptions = [];
+        for ($i = 0; $i <= 20; $i++) {
+            $value = $i * 5;
+            $this->scoreOptions[$value] = $value . '点';
+        }
     }
 
     public function render()

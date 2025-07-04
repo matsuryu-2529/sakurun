@@ -14,7 +14,7 @@ class SubjectTabBar extends Component
 
     public function mount()
     {
-        $this->user = User::find(1);
+        $this->user = auth()->user();
         $this->test = Test::find($this->user->test_id);
         $this->activeSubjectId = $this->test->subjects()->first()->id;
         $this->subjects = $this->test->subjects()->get();

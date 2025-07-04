@@ -37,8 +37,23 @@ html {
   font-size: 20px;
   color: #ffffff;
   background: none;
-  border: none;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 8px 16px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Anonymous Pro', Helvetica, sans-serif;
+}
+
+.logout:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.logout:active {
+  transform: translateY(0);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* メインコンテンツ */

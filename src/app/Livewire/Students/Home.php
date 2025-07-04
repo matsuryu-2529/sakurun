@@ -15,7 +15,7 @@ class Home extends Component
 
     public function mount()
     {
-        $this->user = User::find(1);
+        $this->user = auth()->user();
         $this->tests = Test::where('year', $this->user->year)->get();
     }
 
