@@ -47,7 +47,7 @@
         </div>
         <div class="plan__tasks">
             <p class="plan__tasks-text">目標達成までにやるべきタスクは？</p>
-            <ul class="plan__tasks-list">
+            <ul class="plan__tasks-list {{ $isOpen ? 'editing-mode' : '' }}">
                 @foreach($filteredTasks as $task)
                     <li class="plan__task">
                         <div class="plan__task-row">
@@ -88,7 +88,7 @@
         <div class="do__header">
             <p class="do__title">今日はどのくらい勉強した？</p>
         </div>
-        <div class="do__tasks">
+        <div class="do__tasks {{ $isOpen ? 'editing-mode' : '' }}">
             @foreach($filteredTasks as $task)
                 <div class="do__task {{ $task->progress == 100 ? 'completed' : '' }}">
                     <div class="do__task-row">
@@ -156,7 +156,7 @@
         </div>
         <div class="check__tasks">
             <p class="check__tasks-text">完了したタスクは？</p>
-            <ul class="check__tasks-list">
+            <ul class="check__tasks-list {{ $isOpen ? 'editing-mode' : '' }}">
                 @foreach($filteredTasks as $task)
                     <li class="check__task {{ $task->completed ? 'completed' : '' }}">
                         <div class="check__task-row">

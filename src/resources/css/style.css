@@ -210,6 +210,7 @@
   position: absolute;
   top: 150px;
   width: 100%;
+  padding-bottom: 70px;
 }
 
 .plan__header {
@@ -305,8 +306,27 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  height: 450px;
-  overflow-y: auto;
+  height: calc(100vh - 450px);
+  max-height: 500px;
+  min-height: 200px;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding-bottom: 30px;
+  /* 強制的にスクロール可能にする */
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  position: relative;
+  z-index: 1;
+}
+
+/* 編集モード時の追加スペース確保 */
+.plan__tasks-list.editing-mode {
+  height: calc(100vh - 500px);
+  max-height: 400px;
+  padding-bottom: 90px;
+  /* 編集モード時も強制スクロール */
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }
 
 .plan__task {
@@ -371,14 +391,128 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
+  padding-bottom: 30px;
+  position: relative;
+  z-index: 100;
 }
 
 @media (min-width: 1000px) {
   .create-button-container {
-    position: absolute;
-    bottom: 100px;
-    left: 50%;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 30px;
+    padding-bottom: 40px;
   }
+}
+
+/* レスポンシブデザイン用の高さ調整 */
+@media (min-width: 1100px) {
+  .plan__tasks-list {
+    height: calc(100vh - 400px);
+    max-height: 600px;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .plan__tasks-list.editing-mode {
+    height: calc(100vh - 450px);
+    max-height: 550px;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .do__tasks {
+    height: calc(100vh - 230px);
+    max-height: 650px;
+  }
+
+  .do__tasks.editing-mode {
+    height: calc(100vh - 280px);
+    max-height: 600px;
+  }
+
+  .check__tasks-list {
+    height: calc(100vh - 250px);
+    max-height: 600px;
+  }
+
+  .check__tasks-list.editing-mode {
+    height: calc(100vh - 300px);
+    max-height: 550px;
+  }
+}
+
+/* 小さな画面用の調整 */
+@media (max-width: 480px) {
+  .plan__tasks-list {
+    height: calc(100vh - 470px);
+    min-height: 150px;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .plan__tasks-list.editing-mode {
+    height: calc(100vh - 520px);
+    min-height: 120px;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  .do__tasks {
+    height: calc(100vh - 300px);
+    min-height: 200px;
+  }
+
+  .do__tasks.editing-mode {
+    height: calc(100vh - 350px);
+    min-height: 150px;
+  }
+
+  .check__tasks-list {
+    height: calc(100vh - 320px);
+    min-height: 150px;
+  }
+
+  .check__tasks-list.editing-mode {
+    height: calc(100vh - 370px);
+    min-height: 120px;
+  }
+}
+
+/* スクロールバーのスタイリング */
+.plan__tasks-list::-webkit-scrollbar,
+.do__tasks::-webkit-scrollbar,
+.check__tasks-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.plan__tasks-list::-webkit-scrollbar-track,
+.do__tasks::-webkit-scrollbar-track,
+.check__tasks-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.plan__tasks-list::-webkit-scrollbar-thumb,
+.do__tasks::-webkit-scrollbar-thumb,
+.check__tasks-list::-webkit-scrollbar-thumb {
+  background: #ceafaf;
+  border-radius: 10px;
+}
+
+.plan__tasks-list::-webkit-scrollbar-thumb:hover,
+.do__tasks::-webkit-scrollbar-thumb:hover,
+.check__tasks-list::-webkit-scrollbar-thumb:hover {
+  background: #b09090;
+}
+
+/* 編集モード時のスクロールバーを少し太くする */
+.plan__tasks-list.editing-mode::-webkit-scrollbar,
+.do__tasks.editing-mode::-webkit-scrollbar,
+.check__tasks-list.editing-mode::-webkit-scrollbar {
+  width: 10px;
 }
 
 .delete-button-container {
@@ -407,6 +541,17 @@
 
 .plan__task-button.create {
   background-color: #5cb85c;
+  position: relative;
+  z-index: 200;
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.plan__task-button.create:hover {
+  background-color: #4cae4c;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Do画面 */
@@ -414,6 +559,7 @@
   position: absolute;
   top: 150px;
   width: 100%;
+  padding-bottom: 120px;
 }
 
 .do__header {
@@ -445,8 +591,18 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  height: 600px;
+  height: calc(100vh - 280px);
+  max-height: 500px;
+  min-height: 250px;
   overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+/* 編集モード時のDo画面の追加スペース */
+.do__tasks.editing-mode {
+  height: calc(100vh - 330px);
+  max-height: 450px;
+  padding-bottom: 80px;
 }
 
 .do__task {
@@ -569,6 +725,7 @@
   position: absolute;
   top: 150px;
   width: 100%;
+  padding-bottom: 120px;
 }
 
 .check__header {
@@ -655,8 +812,18 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  height: 450px;
+  height: calc(100vh - 300px);
+  max-height: 450px;
+  min-height: 200px;
   overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+/* 編集モード時のCheck画面の追加スペース */
+.check__tasks-list.editing-mode {
+  height: calc(100vh - 350px);
+  max-height: 400px;
+  padding-bottom: 80px;
 }
 
 .check__task {
@@ -820,6 +987,8 @@
   align-items: center;
   cursor: pointer;
   transition: background-color 0.2s ease-in, transform 0.2s ease-in, box-shadow 0.2s ease-in;
+  z-index: 300;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .edit-button:hover {
@@ -872,12 +1041,36 @@
 textarea {
   border: 2px solid #ceafaf;
   border-radius: 10px;
-  resize: none
+  resize: none;
+  font-family: "Anonymous Pro", Helvetica;
+  padding: 8px;
+  transition: border-color 0.2s ease-in;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #b09090;
+  box-shadow: 0 0 5px rgba(206, 175, 175, 0.5);
 }
 
 .plan__question-answer textarea {
   width: 70px;
   height: 50px;
+}
+
+input[type="date"] {
+  border: 2px solid #ceafaf;
+  border-radius: 10px;
+  font-family: "Anonymous Pro", Helvetica;
+  padding: 4px 8px;
+  font-size: 14px;
+  transition: border-color 0.2s ease-in;
+}
+
+input[type="date"]:focus {
+  outline: none;
+  border-color: #b09090;
+  box-shadow: 0 0 5px rgba(206, 175, 175, 0.5);
 }
 
 .plan__task-deadline textarea {
@@ -955,6 +1148,45 @@ select:hover {
   min-width: 80px;
   height: 40px;
   font-size: 16px;
+}
+
+/* 点数入力フィールド */
+.plan__question-answer-input,
+.check__question-answer-input {
+  width: 80px;
+  height: 40px;
+  font-size: 16px;
+  font-family: "Anonymous Pro", Helvetica;
+  border: 2px solid #ceafaf;
+  border-radius: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 4px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease-in, box-shadow 0.2s ease-in;
+}
+
+.plan__question-answer-input:focus,
+.check__question-answer-input:focus {
+  outline: none;
+  border-color: #b09090;
+  box-shadow: 0 0 5px rgba(206, 175, 175, 0.5);
+}
+
+.plan__question-answer-input:hover,
+.check__question-answer-input:hover {
+  border-color: #b09090;
+}
+
+/* 点数単位表示 */
+.plan__question-answer-unit,
+.check__question-answer-unit {
+  font-family: "Anonymous Pro", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  margin-left: 5px;
 }
 
 /* 完了タスクのスタイル */

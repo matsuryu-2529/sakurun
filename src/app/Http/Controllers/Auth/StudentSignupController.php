@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -39,11 +40,23 @@ class StudentSignupController extends Controller
             'password.confirmed' => 'パスワードが一致しません。',
         ]);
 
+        // ユーザーの学年に応じた最初のテストを取得
+        // 学年1: ID 1, 学年2: ID 4, 学年3: ID 7
+        $test = Test::where('year', $request->year)
+            ->orderBy('id')
+            ->first();
+
+        if (!$test) {
+            return back()->withErrors([
+                'year' => '該当する学年のテストが見つかりませんでした。',
+            ])->withInput();
+        }
+
         $user = User::create([
             'username' => $request->username,
             'year' => $request->year,
             'password' => Hash::make($request->password),
-            'test_id' => 1, // デフォルト値
+            'test_id' => $test->id,
         ]);
 
         // ユーザーをログイン状態にする
