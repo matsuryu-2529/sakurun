@@ -2,23 +2,29 @@
 
 namespace App\Livewire\Students;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Livewire\Component;
 
 class Account extends Component
 {
     public $user;
+
     public $username;
+
     public $year;
+
     public $current_password = '';
+
     public $new_password = '';
+
     public $new_password_confirmation = '';
 
     // モーダル表示状態
     public $showNameModal = false;
+
     public $showYearModal = false;
+
     public $showPasswordModal = false;
 
     public function mount()
@@ -97,8 +103,9 @@ class Account extends Component
             'new_password' => 'required|min:8|confirmed',
         ]);
 
-        if (!Hash::check($this->current_password, $this->user->password)) {
+        if (! Hash::check($this->current_password, $this->user->password)) {
             $this->addError('current_password', '現在のパスワードが正しくありません。');
+
             return;
         }
 

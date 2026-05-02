@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Test;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
 class StudentSignupController extends Controller
@@ -46,7 +46,7 @@ class StudentSignupController extends Controller
             ->orderBy('id')
             ->first();
 
-        if (!$test) {
+        if (! $test) {
             return back()->withErrors([
                 'year' => '該当する学年のテストが見つかりませんでした。',
             ])->withInput();

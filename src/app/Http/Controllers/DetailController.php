@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Routing\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Routing\Controller;
 
 class DetailController extends Controller
 {
     /**
      * ユーザーの詳細情報を表示
-     * @param int $user_id
+     *
+     * @param  int  $user_id
      * @return view
      */
     public function showDetail($user_id)

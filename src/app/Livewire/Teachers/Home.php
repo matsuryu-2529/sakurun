@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Teachers;
 
-use Livewire\Component;
 use App\Models\User;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class Home extends Component
@@ -11,6 +11,7 @@ class Home extends Component
     use WithPagination;
 
     public $search = '';
+
     public $searchTerm = '';
 
     protected $queryString = ['searchTerm'];

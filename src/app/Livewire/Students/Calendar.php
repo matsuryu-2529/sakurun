@@ -2,16 +2,20 @@
 
 namespace App\Livewire\Students;
 
-use Livewire\Component;
-use Carbon\Carbon;
 use App\Models\Task;
+use Carbon\Carbon;
+use Livewire\Component;
 
 class Calendar extends Component
 {
     public $currentMonth;
+
     public $currentYear;
+
     public $selectedDate;
+
     public $tasks = [];
+
     public $user;
 
     public function mount()
@@ -69,7 +73,7 @@ class Calendar extends Component
                 'isCurrentMonth' => $current->month === $this->currentMonth,
                 'isToday' => $current->isToday(),
                 'isSelected' => $current->format('Y-m-d') === $this->selectedDate,
-                'tasks' => $this->getTasksForDate($current->format('Y-m-d'))
+                'tasks' => $this->getTasksForDate($current->format('Y-m-d')),
             ];
             $current->addDay();
         }
@@ -96,7 +100,7 @@ class Calendar extends Component
         return view('livewire.students.calendar', [
             'calendarWeeks' => $this->getCalendarDays(),
             'selectedDateTasks' => $this->getSelectedDateTasks(),
-            'currentMonthName' => Carbon::createFromDate($this->currentYear, $this->currentMonth, 1)->format('Y年n月')
+            'currentMonthName' => Carbon::createFromDate($this->currentYear, $this->currentMonth, 1)->format('Y年n月'),
         ]);
     }
 }

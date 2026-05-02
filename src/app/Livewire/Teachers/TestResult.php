@@ -2,15 +2,26 @@
 
 namespace App\Livewire\Teachers;
 
-use Livewire\Component;
-use App\Models\Test;
 use App\Models\Score;
 use App\Models\Subject;
+use App\Models\Test;
 use App\Models\User;
+use Livewire\Component;
 
 class TestResult extends Component
 {
-    public $userId, $year, $user, $tests, $scores, $subjects;
+    public $userId;
+
+    public $year;
+
+    public $user;
+
+    public $tests;
+
+    public $scores;
+
+    public $subjects;
+
     public $activeSubject = '合計';
 
     public function mount($userId, $year)

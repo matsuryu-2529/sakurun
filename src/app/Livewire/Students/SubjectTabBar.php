@@ -2,15 +2,18 @@
 
 namespace App\Livewire\Students;
 
-use Livewire\Component;
-use App\Models\User;
 use App\Models\Test;
-use App\Models\Subject;
+use Livewire\Component;
 
 class SubjectTabBar extends Component
 {
     public $activeSubjectId = 1;
-    public $subjects, $user, $test;
+
+    public $subjects;
+
+    public $user;
+
+    public $test;
 
     public function mount()
     {

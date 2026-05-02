@@ -2,15 +2,17 @@
 
 namespace App\Livewire\Students;
 
-use Livewire\Component;
-use App\Models\User;
-use App\Models\Test;
-use App\Models\Score;
 use App\Models\Review;
+use App\Models\Score;
+use App\Models\Test;
+use Livewire\Component;
 
 class Home extends Component
 {
-    public $user, $tests;
+    public $user;
+
+    public $tests;
+
     public $selectedTestId;
 
     public function mount()

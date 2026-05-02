@@ -3,14 +3,14 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Subject;
-use App\Models\Test;
-use App\Models\Score;
 use App\Models\Review;
+use App\Models\Score;
+use App\Models\Subject;
 use App\Models\Task;
+use App\Models\Test;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {

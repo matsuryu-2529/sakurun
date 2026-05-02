@@ -2,15 +2,28 @@
 
 namespace App\Livewire\Teachers;
 
-use Livewire\Component;
-use App\Models\Test;
 use App\Models\Score;
-use App\Models\User;
 use App\Models\Task;
+use App\Models\Test;
+use App\Models\User;
+use Livewire\Component;
 
 class Detail extends Component
 {
-    public $userId, $year, $user, $test, $scores, $subjects, $tasks;
+    public $userId;
+
+    public $year;
+
+    public $user;
+
+    public $test;
+
+    public $scores;
+
+    public $subjects;
+
+    public $tasks;
+
     public $openSections = [];
 
     public function mount($userId, $year)

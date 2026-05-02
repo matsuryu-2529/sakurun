@@ -166,3 +166,20 @@
 | [`documents/research-resources.md`](documents/research-resources.md) | 参考資料 |
 | [`DOCKER_SETUP.md`](DOCKER_SETUP.md) | ローカル開発環境の構築手順 |
 
+---
+
+## 補足：過去コミットに含まれる `.env.bak` の取り扱いについて
+
+リファクタリング作業中に、`src/.env.bak` が `.gitignore` の漏れにより過去のコミット（`9680751`、`7ab399b`）で追跡されていたことが判明しました。現在は `git rm` 済み・`.gitignore` も修正済みです。
+
+このファイルに含まれていた `APP_KEY` の値は以下の通りで、**`base64:...=` が2つ連結された形式不正な値**でした。
+
+```
+APP_KEY=base64:ZTSQSECno3Kqhpg+kpZOmE/Y7HZJmCiBo5EznfDHLmg=base64:8fUDp47iqMuBRBflJy9RkhXp/0QYvuGZgUOT+YyiRtc=
+```
+
+このキーは Laravel が parse できず、暗号化／復号に利用不可能なため、**第三者がこの値から本アプリのセッション・暗号化カラム・署名付きURLを復号することはできません**。よって**実害なし**と判定しました。
+
+なお、現在 `src/.env` で運用しているキーは履歴のものとは別物で、`.gitignore` により追跡されていません。
+
+将来的に有効な機密値が誤って履歴へ混入した場合は、`git filter-repo` 等での履歴書き換え＋`php artisan key:generate` によるキーローテーションを実施する方針です。
