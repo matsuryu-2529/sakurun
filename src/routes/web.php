@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TestResultController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\TestResultController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,11 +40,11 @@ Route::post('/teacher/logout', [App\Http\Controllers\Auth\TeacherLoginController
     ->middleware('auth:teacher')
     ->name('teacher.logout');
 
-Route::get('/student',  function () {
+Route::get('/student', function () {
     return view('students');
 })->middleware('auth')->name('student.dashboard');
 
-Route::get('/teacher',  function () {
+Route::get('/teacher', function () {
     return view('home');
 })->middleware('auth:teacher')->name('teacher.dashboard');
 
@@ -56,15 +55,3 @@ Route::get('/detail/{id}', [DetailController::class, 'showDetail'])->name('detai
 Route::get('/', function () {
     return redirect('/student/login');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
