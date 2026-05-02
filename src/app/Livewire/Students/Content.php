@@ -18,7 +18,6 @@ class Content extends Component
     public function navigateToPdca($testId)
     {
         $this->activeTab = 'pdca';
-        // $this->dispatch('navigateToPdca', $testId);
     }
 
     public function render()
