@@ -2,57 +2,31 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Models\Teacher;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Auth\TeacherLoginRequest;
+use Illuminate\Http\RedirectResponse;
 
-class TeacherLoginController extends Controller
+class TeacherLoginController extends AbstractLoginController
 {
-    /**
-     * ログインフォームを表示
-     */
-    public function create()
+    protected function guard(): string
     {
-        return view('auth.teacher-login');
+        return 'teacher';
     }
 
-    /**
-     * ログイン処理
-     */
-    public function store(Request $request)
+    protected function loginView(): string
     {
-        $request->validate([
-            'username' => ['required', 'string'],
-            'password' => ['required', 'string'],
-        ], [
-            'username.required' => 'ユーザー名は必須です。',
-            'password.required' => 'パスワードは必須です。',
-        ]);
-
-        $teacher = Teacher::where('username', $request->username)->first();
-
-        if ($teacher && Hash::check($request->password, $teacher->password)) {
-            Auth::guard('teacher')->login($teacher);
-            return redirect()->intended('/teacher');
-        }
-
-        return back()->withErrors([
-            'username' => '認証に失敗しました。',
-        ])->onlyInput('username');
+        return 'auth.teacher-login';
     }
 
-    /**
-     * ログアウト処理
-     */
-    public function destroy(Request $request)
+    protected function loginUrl(): string
     {
-        Auth::guard('teacher')->logout();
+        return '/teacher/login';
+    }
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+    public function store(TeacherLoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+        $request->session()->regenerate();
 
-        return redirect('/teacher/login');
+        return redirect()->intended('/teacher');
     }
 }
