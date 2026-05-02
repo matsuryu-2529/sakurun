@@ -1,64 +1,7 @@
 <div class="calendar-container">
-    <!-- カレンダーヘッダー -->
-    <div class="calendar-header">
-        <button wire:click="previousMonth" class="calendar-nav-button">‹</button>
-        <h2 class="calendar-title">{{ $currentMonthName }}</h2>
-        <button wire:click="nextMonth" class="calendar-nav-button">›</button>
-    </div>
-
-    <!-- 曜日ヘッダー -->
-    <div class="calendar-weekdays">
-        <div class="weekday">日</div>
-        <div class="weekday">月</div>
-        <div class="weekday">火</div>
-        <div class="weekday">水</div>
-        <div class="weekday">木</div>
-        <div class="weekday">金</div>
-        <div class="weekday">土</div>
-    </div>
-
-    <!-- カレンダーグリッド -->
-    <div class="calendar-grid">
-        @foreach($calendarWeeks as $week)
-            <div class="calendar-week">
-                @foreach($week as $day)
-                    <div class="calendar-day {{ $day['isCurrentMonth'] ? 'current-month' : 'other-month' }} {{ $day['isToday'] ? 'today' : '' }} {{ $day['isSelected'] ? 'selected' : '' }}"
-                         wire:click="selectDate('{{ $day['date'] }}')">
-                        <div class="day-number">{{ $day['day'] }}</div>
-                        @if($day['tasks']->count() > 0)
-                            <div class="task-indicator">
-                                <span class="task-count">{{ $day['tasks']->count() }}</span>
-                            </div>
-                        @endif
-                    </div>
-                @endforeach
-            </div>
-        @endforeach
-    </div>
-
-    <!-- 選択された日のタスク表示 -->
-    @if($selectedDateTasks->count() > 0)
-        <div class="selected-date-tasks">
-            <h3 class="tasks-title">{{ \Carbon\Carbon::parse($selectedDate)->format('n月j日') }}のタスク</h3>
-            <div class="tasks-list">
-                @foreach($selectedDateTasks as $task)
-                    <div class="task-item">
-                        <div class="task-status {{ $task->completed ? 'completed' : 'pending' }}">
-                            {{ $task->completed ? '✓' : '○' }}
-                        </div>
-                        <div class="task-content">
-                            <div class="task-title">{{ $task->task_content }}</div>
-                            <div class="task-progress">進捗: {{ $task->progress }}%</div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    @else
-        <div class="no-tasks">
-            <p>{{ \Carbon\Carbon::parse($selectedDate)->format('n月j日') }}にはタスクがありません</p>
-        </div>
-    @endif
+    @include('livewire.students.calendar.header')
+    @include('livewire.students.calendar.grid')
+    @include('livewire.students.calendar.selected-tasks')
 
     <style>
         .calendar-container {
