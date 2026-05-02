@@ -6,9 +6,9 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Services\AiReviewService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 /**
  * AiReviewService のテストクラス
@@ -21,8 +21,6 @@ class AiReviewServiceTest extends TestCase
 
     /**
      * テストの初期化
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -39,13 +37,13 @@ class AiReviewServiceTest extends TestCase
     {
         $tasks = collect(
             [
-                (object)[
+                (object) [
                     'task_content' => '数学の復習',
                     'progress' => 80,
                     'study_time' => 120,
                     'completed' => false,
                 ],
-                (object)[
+                (object) [
                     'task_content' => '問題演習',
                     'progress' => 30,
                     'study_time' => 60,
@@ -56,7 +54,7 @@ class AiReviewServiceTest extends TestCase
 
         $scores = collect(
             [
-                (object)[
+                (object) [
                     'target_score' => 80,
                     'score' => 65,
                 ],
@@ -65,7 +63,7 @@ class AiReviewServiceTest extends TestCase
 
         $reviews = collect(
             [
-                (object)[
+                (object) [
                     'content' => '数学の計算が苦手です',
                 ],
             ]
@@ -86,7 +84,7 @@ class AiReviewServiceTest extends TestCase
     {
         $tasks = collect(
             [
-                (object)[
+                (object) [
                     'task_content' => '英語の単語学習',
                     'progress' => 90,
                     'study_time' => 180,
@@ -97,7 +95,7 @@ class AiReviewServiceTest extends TestCase
 
         $scores = collect(
             [
-                (object)[
+                (object) [
                     'target_score' => 70,
                     'score' => 75,
                 ],
@@ -106,7 +104,7 @@ class AiReviewServiceTest extends TestCase
 
         $reviews = collect(
             [
-                (object)[
+                (object) [
                     'content' => '順調に進んでいます',
                 ],
             ]
@@ -127,7 +125,7 @@ class AiReviewServiceTest extends TestCase
     {
         $tasks = collect(
             [
-                (object)[
+                (object) [
                     'task_content' => '物理の問題演習',
                     'progress' => 20,
                     'study_time' => 30,
@@ -138,7 +136,7 @@ class AiReviewServiceTest extends TestCase
 
         $scores = collect(
             [
-                (object)[
+                (object) [
                     'target_score' => 80,
                     'score' => 50,
                 ],
@@ -147,7 +145,7 @@ class AiReviewServiceTest extends TestCase
 
         $reviews = collect(
             [
-                (object)[
+                (object) [
                     'content' => '理解が不十分です',
                 ],
             ]
@@ -185,9 +183,9 @@ class AiReviewServiceTest extends TestCase
     {
         $tasks = collect(
             [
-                (object)['progress' => 100, 'completed' => true],
-                (object)['progress' => 50, 'completed' => false],
-                (object)['progress' => 75, 'completed' => false],
+                (object) ['progress' => 100, 'completed' => true],
+                (object) ['progress' => 50, 'completed' => false],
+                (object) ['progress' => 75, 'completed' => false],
             ]
         );
 
@@ -205,9 +203,9 @@ class AiReviewServiceTest extends TestCase
     {
         $tasks = collect(
             [
-                (object)['study_time' => 60],
-                (object)['study_time' => 90],
-                (object)['study_time' => 120],
+                (object) ['study_time' => 60],
+                (object) ['study_time' => 90],
+                (object) ['study_time' => 120],
             ]
         );
 
