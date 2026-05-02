@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Task extends Model
 {
@@ -14,8 +15,8 @@ class Task extends Model
         'task_content',
         'deadline',
         'study_time',
+        'total_study_time',
         'progress',
-        'updated_date',
         'completed',
         'test_id',
         'subject_id',
@@ -24,23 +25,35 @@ class Task extends Model
 
     protected $casts = [
         'completed' => 'boolean',
-        'updated_date' => 'datetime',
         'deadline' => 'datetime',
     ];
 
-    protected $dates = ['deadline'];
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    public function getFormattedDeadlineAttribute()
+    public function test(): BelongsTo
+    {
+        return $this->belongsTo(Test::class);
+    }
+
+    public function subject(): BelongsTo
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
+    public function getFormattedDeadlineAttribute(): string
     {
         return Carbon::parse($this->deadline)->format('n/j');
     }
 
-    public function getFormattedDeadlineForInputAttribute()
+    public function getFormattedDeadlineForInputAttribute(): string
     {
         return Carbon::parse($this->deadline)->format('Y-m-d');
     }
 
-    public function setDeadlineAttribute($value)
+    public function setDeadlineAttribute(string $value): void
     {
         $this->attributes['deadline'] = Carbon::createFromFormat('Y-m-d', $value);
     }
