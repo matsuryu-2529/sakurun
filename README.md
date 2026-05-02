@@ -32,7 +32,7 @@
 
 ここから、**「高校1,2年生が、高校3年生になるまでに自分で学習計画を立てられるようにする」** ことを本プロダクトのゴールに据えました。
 
-詳細は [`documents/problem_statement.md`](documents/problem_statement.md) にまとめています。
+詳細は [`documents/system-requirements/problem_statement.md`](documents/system-requirements/problem_statement.md) にまとめています。
 
 ### 既存サービスとの差別化ポイント
 
@@ -55,7 +55,7 @@
 | **本当に解決したい課題** | 高校1,2年生が、自分で学習計画を立てられないこと |
 | **本当に実現したいこと** | 高校3年生までに、生徒が自分で学習計画を立てられている状態 |
 
-詳細は [`documents/requirements_analysis.md`](documents/requirements_analysis.md) にまとめています。
+詳細は [`documents/system-requirements/requirements_analysis.md`](documents/system-requirements/requirements_analysis.md) にまとめています。
 
 ---
 
@@ -86,7 +86,7 @@
 - **セキュリティ**：CSRF対策／SQLインジェクション対策／XSS対策／SSL-TLS／適切な認証・認可
 - **運用保守性**：mainブランチへのマージで自動デプロイ、Push時に静的解析
 
-詳細は [`documents/requirements_specification.md`](documents/requirements_specification.md) にまとめています。
+詳細は [`documents/system-requirements/requirements_specification.md`](documents/system-requirements/requirements_specification.md) にまとめています。
 
 ---
 
@@ -159,9 +159,10 @@
 
 | ファイル | 内容 |
 | --- | --- |
-| [`documents/problem_statement.md`](documents/problem_statement.md) | 課題定義（背景・ゴール・やらないこと） |
-| [`documents/requirements_analysis.md`](documents/requirements_analysis.md) | 要求分析 |
-| [`documents/requirements_specification.md`](documents/requirements_specification.md) | 要件定義（機能要件・非機能要件） |
-| [`documents/design.md`](documents/design.md) | 設計（Figma リンク） |
+| [`documents/system-requirements/problem_statement.md`](documents/system-requirements/problem_statement.md) | 課題定義（背景・ゴール・やらないこと） |
+| [`documents/system-requirements/requirements_analysis.md`](documents/system-requirements/requirements_analysis.md) | 要求分析 |
+| [`documents/system-requirements/requirements_specification.md`](documents/system-requirements/requirements_specification.md) | 要件定義（機能要件・非機能要件） |
+| [`documents/system-design/design.md`](documents/system-design/design.md) | 設計（Figma リンク） |
 | [`documents/research-resources.md`](documents/research-resources.md) | 参考資料 |
 | [`DOCKER_SETUP.md`](DOCKER_SETUP.md) | ローカル開発環境の構築手順 |
+
